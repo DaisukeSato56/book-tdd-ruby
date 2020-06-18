@@ -4,6 +4,8 @@ require './dollar'
 
 describe 'dollar class' do
   it 'returns multiple currency' do
-    expect('test').to eq 'test'
+    five = Dollar.new(5)
+    five.times(2)
+    expect(five.amount).to eq 10
   end
 end
