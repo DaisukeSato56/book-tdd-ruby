@@ -1,16 +1,9 @@
-class Dollar
-  attr_accessor :amount
+# frozen_string_literal: true
 
-  def initialize(amount)
-    @amount = amount
-  end
+require './money'
 
+class Dollar < Money
   def times(multiplier)
     Dollar.new(@amount * multiplier)
-  end
-
-  def equals(object)
-    dollar = object
-    @amount == dollar.amount
   end
 end
