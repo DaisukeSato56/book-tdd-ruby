@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require './dollar'
-require './franc'
+require './money'
 
 describe Money do
   it 'returns multiple ammount' do
@@ -22,6 +21,6 @@ describe Money do
   end
 
   it 'returns true if amount and currency are same' do
-    expect(Money.new(10, 'CHF').equals(Franc.new(10, 'CHF'))).to be true
+    expect(Money.new(10, 'CHF').equals(Money.franc(10))).to be true
   end
 end
