@@ -16,7 +16,7 @@ class Bank
   end
 
   def addRate(from, to, rate)
-    @rates[Pair.new(from, to).hashCode] = rate
+    rates[Pair.new(from, to).hashCode] = rate
   end
 
   def rate(from, to)
