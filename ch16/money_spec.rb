@@ -80,4 +80,14 @@ describe Money do
     result = bank.reduce(sum, 'USD')
     expect(result.amount).to eq Money.dollar(15).amount
   end
+
+  it '#times for Expression' do
+    five_bucks = Money.dollar(5)
+    ten_francs = Money.franc(10)
+    bank = Bank.new
+    bank.addRate('CHF', 'USD', 2)
+    sum = Sum.new(five_bucks, ten_francs).times(2)
+    result = bank.reduce(sum, 'USD')
+    expect(result.amount).to eq Money.dollar(20).amount
+  end
 end

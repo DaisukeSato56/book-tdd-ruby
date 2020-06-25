@@ -8,4 +8,8 @@ module Expression
   def plus(_addend)
     raise 'impmenet abstract method !'
   end
+
+  def times(_multiplier)
+    raise 'implement abstract method !'
+  end
 end
