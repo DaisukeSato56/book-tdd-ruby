@@ -10,7 +10,7 @@ class TestCase
   end
 
   def run
-    method = getattr(self, @name)
+    method = getattr(self, @name) # 変更してください
     method
   end
 end
