@@ -10,7 +10,7 @@ class TestCase
   end
 
   def run
-    method = getattr(self, @name) # 変更してください
+    method = send(@name) # 変更してください
     method
   end
 end
@@ -18,9 +18,9 @@ end
 class WasRun < TestCase
   attr_accessor :was_run
 
-  def initialize
+  def initialize(name)
     @was_run = nil
-    super
+    super(name)
   end
 
   def test_method
@@ -39,4 +39,4 @@ class TestCaseTest < TestCase
   end
 end
 
-TestCaseTest.new('testRunning').run
+TestCaseTest.new('test_running').run
