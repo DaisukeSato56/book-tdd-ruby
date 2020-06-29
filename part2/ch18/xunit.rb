@@ -10,7 +10,7 @@ class TestCase
   end
 
   def run
-    method = send(@name) # 変更してください
+    method = send(@name)
     method
   end
 end
