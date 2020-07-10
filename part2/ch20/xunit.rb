@@ -11,10 +11,13 @@ class TestCase
 
   def set_up; end
 
+  def tear_down; end
+
   def run
     set_up
     method = send(@name)
     method
+    tear_down
   end
 end
 
@@ -22,13 +25,15 @@ class WasRun < TestCase
   attr_accessor :was_run, :was_set_up, :log
 
   def test_method
-    @was_run = 1
+    @log = log + 'test_method '
   end
 
   def set_up
-    @was_run = nil
-    @was_set_up = 1
     @log = 'set_up '
+  end
+
+  def tear_down
+    @log = log + 'tear_down '
   end
 end
 
@@ -37,20 +42,11 @@ class TestCaseTest < TestCase
 
   attr_accessor :test
 
-  def set_up
-    self.test = WasRun.new('test_method')
-  end
-
-  def test_running
-    self.test.run
-    expect(test.was_run).to eq 1
-  end
-
-  def test_set_up
+  def test_template_method
+    test = WasRun.new('test_method')
     test.run
-    expect(test.log).to be 'set_up '
+    expect(test.log).to eq 'set_up test_method tear_down '
   end
 end
 
-TestCaseTest.new('test_running').run
-TestCaseTest.new('test_set_up').run
+TestCaseTest.new('test_template_method').run
