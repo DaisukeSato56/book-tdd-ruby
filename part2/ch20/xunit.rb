@@ -19,6 +19,7 @@ class TestCase
     method = send(@name)
     method
     tear_down
+    TestResult.new
   end
 end
 
@@ -53,6 +54,19 @@ class TestCaseTest < TestCase
     test.run                                                # 実行
     expect(test.log).to eq 'set_up test_method tear_down '  # アサート
   end
+
+  def test_result
+    test = WasRun.new('test_method')
+    result = test.run
+    expect(result.summary).to eq '1 run, 0 failed'
+  end
+end
+
+class TestResult
+  def summary
+    '1 run, 0 failed'
+  end
 end
 
 TestCaseTest.new('test_template_method').run
+TestCaseTest.new('test_result').run
