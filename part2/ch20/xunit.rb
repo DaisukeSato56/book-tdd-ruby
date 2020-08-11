@@ -2,6 +2,7 @@
 
 require 'rspec/expectations'
 
+# テストメソッドを動的に呼び出す責務を持つ
 class TestCase
   attr_accessor :name
 
@@ -21,6 +22,7 @@ class TestCase
   end
 end
 
+# テストメソッドが起動されたかどうかを記録する
 class WasRun < TestCase
   attr_accessor :was_run, :was_set_up, :log
 
@@ -37,15 +39,19 @@ class WasRun < TestCase
   end
 end
 
+# テストの実行に関しての責務を持つ
 class TestCaseTest < TestCase
   include RSpec::Matchers
 
   attr_accessor :test
 
   def test_template_method
-    test = WasRun.new('test_method')
-    test.run
-    expect(test.log).to eq 'set_up test_method tear_down '
+    #
+    # テストには三つのパターン
+    #
+    test = WasRun.new('test_method')                        # オブジェクトの生成
+    test.run                                                # 実行
+    expect(test.log).to eq 'set_up test_method tear_down '  # アサート
   end
 end
 
