@@ -33,6 +33,10 @@ class WasRun < TestCase
     @log = log + 'test_method '
   end
 
+  def test_broken_method
+    raise Exception
+  end
+
   def set_up
     @log = 'set_up '
   end
@@ -62,6 +66,12 @@ class TestCaseTest < TestCase
     result = test.run
     expect(result.summary).to eq '1 run, 0 failed'
   end
+
+  def test_failed_result
+    test = WasRun.new('test_broken_method')
+    result = test.run
+    expect(result.summary).to eq '1 run, 1 failed'
+  end
 end
 
 class TestResult
@@ -82,3 +92,4 @@ end
 
 TestCaseTest.new('test_template_method').run
 TestCaseTest.new('test_result').run
+# TestCaseTest.new('test_failed_result').run
