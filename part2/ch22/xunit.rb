@@ -18,12 +18,8 @@ class TestCase
     result = TestResult.new
     result.test_started
     set_up
-    begin
-      method = send(@name)
-      method
-    rescue StandardError
-      result.test_failed
-    end
+    method = send(@name)
+    method
     tear_down
     result
   end
@@ -76,13 +72,6 @@ class TestCaseTest < TestCase
     result = test.run
     expect(result.summary).to eq '1 run, 1 failed'
   end
-
-  def test_failed_result_formatting
-    result = TestResult.new
-    result.test_started
-    result.test_failed
-    expect(result.summary).to eq '1 run, 1 failed'
-  end
 end
 
 class TestResult
@@ -90,23 +79,17 @@ class TestResult
 
   def initialize
     @run_count = 0
-    @error_count = 0
   end
 
   def test_started
     self.run_count += 1
   end
 
-  def test_failed
-    self.error_count += 1
-  end
-
   def summary
-    "#{run_count} run, #{error_count} failed"
+    "#{run_count} run, 0 failed"
   end
 end
 
-puts TestCaseTest.new('test_template_method').run.summary
-puts TestCaseTest.new('test_result').run.summary
-puts TestCaseTest.new('test_failed_result').run.summary
-puts TestCaseTest.new('test_faild_result_formatting').run.summary
+TestCaseTest.new('test_template_method').run
+TestCaseTest.new('test_result').run
+# TestCaseTest.new('test_failed_result').run
